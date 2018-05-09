@@ -1,0 +1,254 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,700');
+
+/*---Media Queries --*/
+@media (max-width: 992px) {
+
+  }
+@media (max-width: 768px) {
+  
+}
+@media (max-width: 576px) {
+}
+
+figure {
+  position: relative;
+  width: 100%;
+  height: 60%;
+  margin: 0!important;
+}
+.fixed-wrap {
+  clip: rect(0, auto, auto, 0);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+#fixed {
+  background-image: url('img/mac.png');
+  position: fixed;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center center;
+  -webkit-transform: translateZ(0);
+          transform: translateZ(0);
+  will-change: transform;
+}
+/*--- Bootstrap Padding Fix --*/
+[class*="col-"] {
+    padding: 1rem;
+}
+
+.panel-title {
+	color: orange;
+	text-align: center;
+}
+
+.Profile.selected {
+	color: black;
+	font-weight: bold;
+}
+
+.foot {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	background: white;
+	border-top: 2px solid gray;
+}
+
+.copyright {
+	color: gray;
+	text-align: center;
+	padding: 1% 0 1% 0;
+	font-size: 10px;
+}
+
+form .filters{
+	border: 1px solid black;
+	border-radius: 8px;
+}
+
+.filters {
+	text-align: center;
+}
+
+.filter-title {
+	width: 100%;
+	text-align: center;
+	color: orange;
+	font-size: 150%;
+}
+
+.favorites-title {
+	width: 100%;
+	text-align: left;
+	color: orange;
+	font-size: 130%;
+}
+
+.list-group ol li {
+	
+}
+
+.result-box {
+	width: 100%;
+	height: 30px;
+	margin-top: 20px;
+	background: red;
+	color: white;
+	border-radius: 8px;
+	text-align: center;
+}
+
+.btn {
+	width: 100%;
+}
+
+#Check-Out {
+    width: 100%;
+}
+
+#Check-In {
+    width: 100%;
+}
+
+.room-tab {
+	background: #F0FFFF;
+	border-bottom: 2px dashed gray;
+	border-radius: 8px;
+}
+
+.room-image {
+	max-width: 100%;
+	max-height: 100%;
+	border-right: 3px solid red;
+	padding: 5%;
+}
+
+.room-name{
+	font-weight: bold;
+	text-transform: uppercase;
+	color: black;
+}
+
+.room-area {
+	text-transform: uppercase;
+	color: grey;
+}
+
+.room-info{
+	color: grey;
+	font-size: 2vh;
+}
+
+.button.go-to-room {
+	background: red;
+	border-radius: 8px;
+	color: white;
+	float: right;
+	font-size: 3vh;
+	font-weight: bold;
+}
+
+.button.go-to-room:hover {
+	background: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2)), red;
+}
+
+.bar {
+	padding: 0 1vw;
+	margin: 0;
+}
+
+.room-price {
+	background: grey;
+	color: white;
+	max-width: 100%;
+	max-height: 100%;
+	text-align: center;
+	margin-bottom: 1vh;
+}
+
+.room-guests {
+	width: 50%;
+	font-size: 2vh;
+	color: grey;
+	float: left;
+	text-align: left;
+	border-right: 1px solid grey;
+	margin-bottom: 1vh;
+}
+
+.room-type {
+	width: 50%;
+	font-size: 2vh;
+	color: grey;
+	float: right;
+	text-align: right;
+	margin-bottom: 1vh;
+}
+
+
+.room-date{
+	width: 33%;
+	font-size: 2vh;
+	color: grey;
+	float: left;
+	margin-bottom: 1vh;
+	border-right: 1px solid grey;
+	text-align: center;
+}
+
+.room-type2 {
+	width: 33%;
+	font-size: 2vh;
+	color: grey;
+	float: left;
+	margin-bottom: 1vh;
+	text-align: center;
+}
+
+@media (max-height:576px) {
+	.foot {
+		position:relative;
+		bottom: 0;
+	}
+	
+	.button.go-to-room {
+		width: 80%;
+		height: 50%;
+	}
+}
+
+@media (max-width:576px) {
+	.foot {
+		position:relative;
+		bottom: 0;
+	}
+	
+	.button.go-to-room {
+		width: 80%;
+		height: 50%;
+	}
+}
+
+/*
+Extra small (xs) devices (portrait phones, less than 576px)
+No media query since this is the default in Bootstrap
+
+Small (sm) devices (landscape phones, 576px and up)
+@media (min-width: 576px) { ... }
+
+Medium (md) devices (tablets, 768px and up)
+@media (min-width: 768px) { ... }
+
+Large (lg) devices (desktops, 992px and up)
+@media (min-width: 992px) { ... }
+
+Extra (xl) large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) { ... }
+*/
