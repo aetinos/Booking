@@ -121,7 +121,7 @@
 							<h6>Room Description</h6>
 							<span>Desc goes here</span>
 						</div>
-						<button href="#" class="button go-to-room">Book Now</button>
+						<button href="#" class="button">Book Now</button>
 					</div>
 					<div id="empty-col" class="col-xl-3 col-md-2 col-sm-2 col-xs-12"></div>
 				</div>
