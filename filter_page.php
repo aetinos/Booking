@@ -23,7 +23,8 @@
 		<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
-		<link href="filter_page.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link href="./css/filter_page.css" rel="stylesheet">
 		<script src="./JavaScripts/exclude.js"></script>
 		<script src="./JavaScripts/date-button.js"></script>
 		<script src="./JavaScripts/slider.js"></script>
@@ -39,10 +40,10 @@
 				<div class="collapse navbar-collapse" id="navbarResponsive">
 					<ul class="navbar-nav ml-auto">
 						<li class="nav-item">
-							<a class="nav-link" href="landing_page.php">Home</a>
+							<a class="nav-link" href="landing_page.php"><i class="fa fa-home"></i>Home</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="profile_page.php">Profile</a>
+							<a class="nav-link" href="profile_page.php"><i class="fa fa-user"></i>Profile</a>
 						</li>
 					</ul>
 				</div>
@@ -140,7 +141,7 @@
 								<h4 class="room-name">Hotel Name</h4>
 								<h6 class="room-area">Nomos, Poli</h6>
 								<p class="room-info">To info tou domatiou tha benei edw!To info tou domatiou tha benei edw!To info tou domatiou tha benei edw!</p>
-								<form action="room-page.html" method="post">
+								<form action="room_page.php" method="post">
 									<button type="submit" class="button go-to-room">Go to Room Page</button>
 								</form>
 							</div>

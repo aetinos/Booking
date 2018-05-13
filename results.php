@@ -45,9 +45,9 @@
 							<h4 class="room-name"><?php echo $row['name'];?></h4>
 							<h6 class="room-area"><?php echo $row['area'];?>, <?php echo $row['city'];?></h6>
 							<p class="room-info"><?php echo $row['short_description'];?></p>
-							<form action="room-page.php" method="post">
-								<button type="submit" class="button go-to-room">Go to Room Page</button>
-								</form>
+							<form action="room_page.php" method="post">
+								<button class="button go-to-room">Go to Room Page</button>
+							</form>
 						</div>
 					</div>
 					<div class="row">

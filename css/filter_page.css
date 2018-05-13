@@ -53,6 +53,10 @@ figure {
 	font-weight: bold;
 }
 
+.main {
+	height: 100%;
+}
+
 .foot {
 	position: absolute;
 	bottom: 0;
@@ -224,16 +228,131 @@ form .filters{
 	}
 }
 
-@media (max-width:576px) {
-	.foot {
-		position:relative;
-		bottom: 0;
+/* For the room page*/
+
+.heading {
+	width: 100%;
+	overflow: auto;
+	background: red;
+	color: white;
+	border-radius: 8px;
+	font-size: 100%;
+}
+
+.name-location {
+	float: left;
+	margin: 0.5vh 0 0.5vh 0;
+	padding: 0 1vw 0 1vw;
+	border-right: 1px solid white;
+	text-align: center;
+}
+
+.reviews {
+	float:left;
+	margin: 0.5vh 0 0.5vh 0;
+	border-right: 1px solid white;
+	padding: 0 1vw 0 1vw;
+	text-align: center;
+}
+
+.favorite-button {
+	float: left;
+	padding: 0 1vw 0 1vw;
+	margin: 0.5vh 0 0.5vh 0;
+}
+
+.price-value {
+	float: right;
+	padding: 0 1vw 0 1vw;
+	margin: 0.5vh 0 0.5vh 0;
+}
+
+.room-image2 {
+	max-width: 60%;
+	max-height: 100%;
+	border-radius: 8px;
+}
+
+.item {
+	padding: 0 1vw 0 1vw;
+	margin: 0.5vh 0 0.5vh 0;
+	text-align: center;
+	font-size: 100%;
+	width: 20%;
+	float: left;
+	height: 100%;
+}
+
+.item.with-border {
+	border-right: 1px dashed white;
+}
+
+.item ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+@media (max-width: 576px) {
+	#empty-col {
+		display: none;
 	}
-	
-	.button.go-to-room {
-		width: 80%;
-		height: 50%;
+}
+
+.desc-box {
+	border-left: 1px solid red;
+}
+
+.desc-box span {
+	font-size: 2vh;
+}
+
+.map-box {
+	padding-bottom: 3vh;
+	border-bottom: 1px dashed grey;
+}
+
+#map {
+	width: 100%;
+	height: 30vh;
+}
+
+#comment {
+	width: 100%;
+}
+
+.btn {
+	width: 20%;
+}
+
+@media (max-width: 576px) {
+	.btn {
+		width: 40%;
 	}
+}
+
+.stars-outer {
+	display: inline-block;
+	position: relative;
+	font-family: FontAwesome;
+}
+
+.stars-outer::before {
+	content: "\f006 \f006 \f006 \f006 \f006";
+}
+ 
+.stars-inner {
+	position: absolute;
+	top: 0;
+	left: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	width: 0;
+}
+ 
+.stars-inner::before {
+	content: "\f005 \f005 \f005 \f005 \f005";
+	color: #f8ce0b;
 }
 
 /*
