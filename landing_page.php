@@ -1,15 +1,5 @@
 <?php
-	$servername = "localhost";
-	$username = "booking";
-	$password = "DcboXEAh93dCQZfD";
-	$dbname = "booking";
-
-	// Create connection
-	$conn = mysqli_connect($servername, $username, $password, $dbname);
-	// Check connection
-	if (!$conn) {
-		die("Connection failed: " . mysqli_connect_error());
-	}
+	require('db.php');
 ?><!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -26,11 +16,10 @@
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		<script src="./JavaScripts/exclude.js"></script>
 		<script src="./JavaScripts/date-button.js"></script>
 	</head>
 	<body>
-			<!--- NAVIGATION BAR -->
+		<!--- NAVIGATION BAR -->
 		<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
 			<div class="container-fluid">
 				<a class="navbar-brand"><img src="./images/logo.png" width="100%"></a>
@@ -56,38 +45,28 @@
 				<div class="col-md-4 col-sm-4 col-xs-12">
 					 <form action=<?php echo"filter_page.php";?> class="form-container" method="POST">
 						<div class="form-group">
-							<select class="form-control" value="" name="city">
-								<h6 class="dropdown-header">City</h6>
+							<select class="form-control" value="0" name="city">
+								<option value="0" selected="selected" disabled>City</option>
 								<?php
 									$sql = "SELECT DISTINCT(city) FROM room";
-									$result = mysqli_query($conn, $sql);
-									if (mysqli_query($conn, $sql)) {
-										//echo '<div class="alert alert-success" role="alert">New record created successfully</div>';
-									} else {
-										echo '<div class="alert alert-success" role="alert">Error: ' . $sql . "<br>" . mysqli_error($conn).'</div>';
-									}
-									if (mysqli_num_rows($result) > 0) {
-										while ($row = mysqli_fetch_assoc($result))
+									$result = $db->query($sql);
+									if ($result->num_rows > 0) {
+										while ($row = $result->fetch_assoc())
 										{
 											echo "<option value='".$row['city']."'>".$row['city']."</option>";
 										}
 									}
 								?>
 							</select>
-							<select class="form-control" value="" name="room-type">
-								<h6 class="dropdown-header">Dropdown header</h6>
+							<select class="form-control" value="0" name="room-type">
+								<option value="0" selected="selected" disabled>Room Type</option>
 								<?php
-									$sql = "SELECT room_type FROM room_type";
-									$result = mysqli_query($conn, $sql);
-									if (mysqli_query($conn, $sql)) {
-										//echo '<div class="alert alert-success" role="alert">New record created successfully</div>';
-									} else {
-										echo '<div class="alert alert-success" role="alert">Error: ' . $sql . "<br>" . mysqli_error($conn).'</div>';
-									}
-									if (mysqli_num_rows($result) > 0) {
-										while ($row = mysqli_fetch_assoc($result))
+									$sql = "SELECT id, room_type FROM room_type";
+									$result = $db->query($sql);
+									if ($result->num_rows > 0) {
+										while ($row = $result->fetch_assoc())
 										{
-											echo "<option value='".$row['room_type']."'>".$row['room_type']."</option>";
+											echo "<option value='".$row['id']."'>".$row['room_type']."</option>";
 										}
 									}
 								?>

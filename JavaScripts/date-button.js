@@ -14,6 +14,6 @@ $(document).ready( function() {
 		showAnim: 'drop',
 		numberOfMonth: 1,
 		minDate: minDate,
-		dateFromat: 'dd/mm/yy',
+		dateFromat: 'dd/mm/yy'
 	});
 });

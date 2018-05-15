@@ -42,10 +42,11 @@ figure {
 
 .main {
 	height: 100%;
+	padding-bottom: 2vh;
 }
 
 .foot {
-	position: absolute;
+	position: fixed;
 	bottom: 0;
 	width: 100%;
 	background: white;
@@ -244,6 +245,18 @@ form .filters{
 	margin: 0.5vh 0 0.5vh 0;
 }
 
+.favorite-button:hover {
+	color: yellow;
+}
+
+.favorite-button.selected {
+	color: yellow;
+}
+
+.favorite-button.selected:hover {
+	color: white;
+}
+
 .price-value {
 	float: right;
 	padding: 0 1vw 0 1vw;
@@ -303,10 +316,6 @@ form .filters{
 	width: 100%;
 }
 
-.btn {
-	width: 20%;
-}
-
 @media (max-width: 576px) {
 	.btn {
 		width: 40%;
@@ -335,6 +344,27 @@ form .filters{
 .stars-inner::before {
 	content: "\f005 \f005 \f005 \f005 \f005";
 	color: #f8ce0b;
+}
+
+.button.book-now {
+	background: red;
+	border-radius: 8px;
+	color: white;
+	float: right;
+	font-size: 3vh;
+	font-weight: bold;	
+}
+
+.button.book-now:hover {
+	background: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.2)), red;
+}
+
+.button.booked {
+	background: grey;
+	border-radius: 8px;
+	color: white;
+	float: right;
+	font-size: 3vh;
 }
 
 /*

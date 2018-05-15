@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<?php
+	require('db.php');
+?><!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
@@ -43,11 +45,22 @@
 				<div class="col-md-1 col-sm-1 col-xs-12"></div>
 				<div class="col-md-3 col-sm-3 col-xs-12">
 					<div class="container">
+						<?php
+							$sql = "SELECT name FROM room
+								JOIN favorites ON favorites.room_id = room.room_id 
+							";
+							$result = $db->query($sql);
+						?>
 						<div class="container-fluid favorites-title">Favorites</div>
 						<div class="list-group">
 							<ol>
-								<li>Megali Vretania hotel</li>
-								<li>Megali Vretania hotel</li>
+							<?php
+								if ($result->num_rows > 0) {
+									while ($row = $result->fetch_assoc()) {?>
+										<li><?php echo $row['name'];?></li><?php
+									}
+								}
+							?>
 							</ol>
 						</div>
 					</div>
@@ -55,65 +68,65 @@
 						<div class="container-fluid favorites-title">Reviews</div>
 						<div class="list-group">
 							<ol>
-								<li>Hilton hotel</li>
-								<li>Megali Vretania hotel</li>
+								<?php
+									$sql = "SELECT name FROM room
+										JOIN reviews ON reviews.room_id = room.room_id 
+									";
+									$result = $db->query($sql);
+								?>
+								<?php
+								if ($result->num_rows > 0) {
+									while ($row = $result->fetch_assoc()) {?>
+										<li><?php echo $row['name'];?></li><?php
+									}
+								}
+							?>
 							</ol>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-7 col-sm-7 col-xs-12">
+					<?php
+						$sql = "SELECT * FROM room, bookings, room_type 
+							WHERE bookings.room_id = room.room_id AND room.room_type=room_type.id
+						";
+						$result = $db->query($sql);
+					?>
 					<div class="container-fluid result-box">My bookings</div>
+					<?php 
+						if ($result->num_rows > 0) {
+									while ($row = $result->fetch_assoc()) {?>
+										
 					<div class="container-fluid room-tab">
 						<div class="row">
 							<div class="col-4">
-								<img class="room-image" src="images/rooms/room-1.jpg"><img>
+								<img class="room-image" src="images/rooms/<?php echo $row['photo']?>"><img>
 							</div>
 							<div class="col-8">
-								<h4 class="room-name">Hotel Name</h4>
-								<h6 class="room-area">Nomos, Poli</h6>
-								<p class="room-info">To info tou domatiou tha benei edw!To info tou domatiou tha benei edw!To info tou domatiou tha benei edw!</p>
+								<h4 class="room-name"><?php echo $row['name']?></h4>
+								<h6 class="room-area"><?php echo $row['area']. "," . $row['city']?></h6>
+								<p class="room-info"><?php echo $row['short_description']?></p>
 								<form action="room_page.php" method="post">
+								<input type="hidden" name="roomId"
+													value="<?php echo $row['room_id'];?>">
 									<button type="submit" class="button go-to-room">Go to Room Page</button>
 								</form>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-4 bar">
-								<div class="room-price">Total Cost: </div>
+								<div class="room-price">Total Cost:<?php echo $row['price'];?> </div>
 							</div>
 							<div class="col-8 bar">
-								<div class="room-date">Check-in Date: </div>
-								<div class="room-date">Check-Out Date: </div>
-								<div class="room-type2">Type of Room: </div>
-							</div>
-						</div>
-					</div>
-					<div class="container-fluid room-tab">
-						<div class="row">
-							<div class="col-4">
-								<img class="room-image" src="images/rooms/room-1.jpg"><img>
-							</div>
-							<div class="col-8">
-								<h4 class="room-name">Hotel Name</h4>
-								<h6 class="room-area">Nomos, Poli</h6>
-								<p class="room-info">To info tou domatiou tha benei edw!To info tou domatiou tha benei edw!To info tou domatiou tha benei edw!</p>
-								<form action="room_page.php" method="post">
-									<button type="submit" class="button go-to-room">Go to Room Page</button>
-								</form>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-4 bar">
-								<div class="room-price">Per Night: </div>
-							</div>
-							<div class="col-8 bar">
-								<div class="room-date">Check-in Date: </div>
-								<div class="room-date">Check-Out Date: </div>
-								<div class="room-type2">Type of Room: </div>
+								<div class="room-date">Check-in Date: <?php echo $row['check_in_date'];?></div>
+								<div class="room-date">Check-Out Date: <?php echo $row['check_out_date'];?></div>
+								<div class="room-type2">Type of Room: <?php echo $row['room_type'];?></div>
 							</div>
 						</div>
 					</div>
 				</div>
+				<?php 
+						}}?>
 				<div class="col-md-1 col-sm-1 col-xs-12"></div>
 			</div>
 		</div>

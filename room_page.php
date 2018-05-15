@@ -1,4 +1,8 @@
-<!DOCKTYPE html>
+<?php
+	require('db.php');
+	$roomId = $_POST['roomId'];
+	$userId = 1;
+?><!DOCKTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -43,22 +47,55 @@
 					<div id="empty-col" class="col-xl-3 col-md-2 col-sm-2 col-xs-12"></div>
 					<div class="col-xl-6 col-md-8 col-sm-8 col-xs-12">
 						<div class="heading">
-							<div class="name-location">Hotel Name - Location </div>
+							<?php
+								$sql = "SELECT name, city, area FROM room WHERE room_id= '$roomId'";
+								$result = $db->query($sql);
+								if($result->num_rows > 0) {
+									$row = $result->fetch_assoc();
+								}
+							?>
+							<div class="name-location"><?php echo $row['name'] . " - " . $row['city'] . ", " . $row['area'];?> </div>
 							<div class="reviews"> Reviews:  
 									<div class="stars-outer">
 										<div class="stars-inner"></div>
 									</div>
-									<!--
+									<script>
+										<?php
+											$sql = "SELECT sum(rate) AS sum, count(review_id) AS count FROM reviews";
+											$result = $db->query($sql);
+											if($result->num_rows > 0) {
+												$row = $result->fetch_assoc();
+											
+										?>
 										// 2
-										const starPercentage = (ratings[rating] / starTotal) * 100;
+										const starPercentage = ( ($row['sum']/$row['count']) / 5) * 100;
 										// 3
-										const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
-										// 4
-										document.querySelector(`.${rating} .stars-inner`).style.width = starPercentageRounded; 
-									-->
+										document.querySelector(".stars-inner").style.width = starPercentage+"%";
+										<?php } ?>
+									</script>
 							</div>
-							<div class="favorite-button">&#9829;</div>
-							<div class="price-value">Per Night: </div>
+							<?php
+								$sql = "SELECT status FROM favorites WHERE room_id='$roomId'";
+								$result = $db->query($sql);
+								if($result->num_rows > 0) {
+									$row = $result->fetch_assoc();
+								}
+							?>
+							<div class="favorite-button <?php 
+								if($row['status'] == 1) {
+									echo 'selected';
+								}
+							?>" id="favorite-button">&#9829;</div>
+							<div class="price-value">Per Night: <?php 
+								$sql = "SELECT *, rt.room_type
+								FROM room r 
+								JOIN room_type rt ON r.room_type = rt.id
+								WHERE r.room_id = '$roomId'";
+								$result = $db->query($sql);
+								if($result->num_rows > 0) {
+									$row = $result->fetch_assoc();
+								}
+							echo $row['price'];?>&euro;</div>
 						</div>
 					</div>
 					<div id="empty-col" class="col-xl-3 col-md-2 col-sm-2 col-xs-12"></div>
@@ -67,7 +104,7 @@
 				<div class="row">
 					<div id="empty-col" class="col-xl-3 col-md-2 col-sm-2 col-xs-12"></div>
 					<div class="col-xl-6 col-md-8 col-sm-8 col-xs-12">
-						<img class="room-image2" src="images/rooms/room-1.jpg"><img>
+						<img class="room-image2" src="images/rooms/<?php echo $row['photo']?>"><img>
 					</div>
 					<div id="empty-col" class="col-xl-3 col-md-2 col-sm-2 col-xs-12"></div>
 				</div>
@@ -79,36 +116,53 @@
 						<div class="heading">
 							<div class="item with-border">
 								<ul>
-									<li><i class="fa fa-user"></i>2</li>
+									<li><i class="fa fa-user"></i><?php echo $row['count_of_guests']?></li>
 									<li>Count of Guests</li>
 								</ul>
 							</div>
 							<div class="item with-border">
 								<ul>
-									<li><i class="fa fa-bed"></i>2</li>
+									<li><i class="fa fa-bed"></i><?php echo $row['room_type']?></li>
 									<li>Type of Room</li>
 								</ul>
 							</div>
 							<div class="item with-border">
 								<ul>
-									<li><i class="fa fa-car"></i>1</li>
+									<li><i class="fa fa-car"></i><?php 
+										if($row['parking'] > 0) {
+											echo 'yes';
+										}else {
+											echo 'no';
+										}
+									?></li>
 									<li>Parking</li>
 								</ul>
 							</div>
 							<div class="item with-border">
 								<ul>
-									<li><i class="fa fa-wifi"></i>Yes</li>
+									<li><i class="fa fa-wifi"></i><?php 
+										if($row['wifi'] > 0) {
+											echo 'yes';
+										}else {
+											echo 'no';
+										}
+									?></li>
 									<li>Wifi</li>
 								</ul>
 							</div>
 							<div class="item">
 								<ul>
-									<li><i class="fa fa-user"></i>Yes</li>
+									<li><i class="fa fa-user"></i><?php 
+										if($row['pet_friendly'] > 0) {
+											echo 'yes';
+										}else {
+											echo 'no';
+										}
+									?></li>
 									<li>Pet Friendly</li>
 								</ul>
 							</div>
 						</div>
-						
 					</div>
 					<div id="empty-col" class="col-xl-3 col-md-2 col-sm-2 col-xs-12"></div>
 				</div>
@@ -119,9 +173,31 @@
 					<div class="col-xl-6 col-md-8 col-sm-8 col-xs-12">
 						<div class="container-fluid desc-box">
 							<h6>Room Description</h6>
-							<span>Desc goes here</span>
+							<span><?php echo $row['short_description'];?></span>
 						</div>
-						<button href="#" class="button">Book Now</button>
+						<?php
+							$sql = "SELECT 'Already Booked' AS answer FROM room
+							WHERE room_id IN (SELECT room_id FROM bookings WHERE room_id = '$roomId')
+							UNION
+							SELECT 'Book Now'
+							LIMIT 1;
+							";
+							$result = $db->query($sql);
+							if($result->num_rows > 0) {
+								$row = $result->fetch_assoc();
+							}
+						?>
+						<div class="btn button <?php 
+							if($row['answer'] === "Book Now") {
+								echo "book-now";
+							}else {
+								echo "booked disabled";
+							}
+						?>" onclick="book(this)">
+							<?php 
+								echo $row['answer'];
+							?>
+						</div>
 					</div>
 					<div id="empty-col" class="col-xl-3 col-md-2 col-sm-2 col-xs-12"></div>
 				</div>
@@ -134,7 +210,16 @@
 						<div id="map"></div>
 							<script>
 							  function initMap() {
-								var pos = {lat: 37.976703, lng: 23.750417};
+								<?php 
+									$sql = "SELECT lat_location, lng_location FROM room
+									WHERE room_id = '$roomId';
+									";
+									$result = $db->query($sql);
+									if($result->num_rows > 0) {
+										$row = $result->fetch_assoc();
+									}
+								?>
+								var pos = {lat: <?php echo $row['lat_location'];?>, lng: <?php echo $row['lng_location'];?>};
 								var map = new google.maps.Map(document.getElementById('map'), {
 								  zoom: 15,
 								  center: pos
@@ -252,6 +337,63 @@
 					re = numOfStars;
 					prev = 0;
 				}
+			}
+			/*
+			document.getElementById('favorite-button').addEventListener('click', function favorite(evt) {
+				var hart = evt.target;
+				if(hart.className === "favorite-button selected") {
+					<?php
+						$sql = "SELECT room_id FROM favorites WHERE room_id = '$roomId';";
+						$result = $db->query($sql);
+						if($result->num_rows > 0) {
+							//Make status 0
+							$stmt = $db->prepare("UPDATE favorites
+									SET status = ?
+									WHERE room_id = ?;
+									");
+							$stat = 0;
+							$stmt->bind_param('ii', $stat, $roomId);
+							$stmt->execute();
+							$stmt->close();
+						}
+					?>
+					hart.className = "favorite-button";
+				}else {
+					<?php
+						$sql = "SELECT room_id FROM favorites WHERE room_id = '$roomId';";
+						$result = $db->query($sql);
+						if($result->num_rows > 0) {
+							//Make status 1
+							$stmt = $db->prepare("UPDATE favorites
+									SET status = ?
+									WHERE room_id = ?;
+									");
+							$stat = 1;
+							$stmt->bind_param('ii', $stat, $roomId);
+							$stmt->execute();
+							$stmt->close();
+						}else {
+							$stmt = $db->prepare("INSERT INTO favorites(status, user_id, room_id)
+												VALUES(?, ?, ?);
+									");
+							$stat = 1;
+							$stmt->bind_param('iii', $stat, $userId, $roomId);
+							$stmt->execute();
+							$stmt->close();
+						}
+					?>
+					hart.className = "favorite-button selected";
+				}
+			}, false);*/
+			
+			function book(room){
+				<?php
+					$stmt = $db->prepare("INSERT INTO bookings (check_in_date, check_out_date, user_id, room_id) VALUES(?, ?, ?, ?)");
+					$stmt->bind_param("ssii", $dateIn, $dateOut, $userId, $roomId);
+					$stmt->execute();
+					$stmt->close();
+				?>
+				room.className = "btn button booked disabled";
 			}
 		</script>
 		
